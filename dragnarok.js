@@ -25,9 +25,9 @@ app.directive('dragnarok', function ($document, $compile) {
         //set of public methods that can be overruled
         scope.cfg = {
           onDragStart: function(e, scope) {},
-          onDrag: function() {},
-          onDrop: function(e, scope, native) {
-            native();
+          onDrag: function(e, scope) {},
+          onDrop: function(e, scope, _default) {
+            _default();
           },
           moveOriginal: false,
           everywhere: false,
@@ -116,7 +116,7 @@ app.directive('dragnarok', function ($document, $compile) {
             .append(_el)
             .bind('mousemove', function(e) {
                 drag(e, _el);
-                scope.cfg.onDrag(e);
+                scope.cfg.onDrag(e, scope);
             })
             .bind('mouseup', function(e) {
               body.unbind('mousemove').unbind('mouseup');
